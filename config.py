@@ -9,5 +9,5 @@ load_dotenv()
 
 API_ID = int(getenv("API_ID","27655384"))
 API_HASH = getenv("API_HASH","a6a418b023a146e99af9ae1afd571cf4")
-BOT_TOKEN = getenv("BOT_TOKEN","")
+BOT_TOKEN = getenv("BOT_TOKEN","8106761204:AAEoorExM6k1YrGpgifIqzbukgERjfEDnrw")
 BANALL = list(map(int, getenv("BANALL", "7137269276 7045191057 7091230649").split()))
