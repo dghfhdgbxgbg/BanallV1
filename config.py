@@ -1,7 +1,6 @@
 import re
 from os import getenv
 from pyrogram import Client, filters
-from pytgcalls import PyTgCalls
 from dotenv import load_dotenv
 from pyrogram import filters
 
