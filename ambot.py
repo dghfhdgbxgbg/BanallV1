@@ -54,14 +54,7 @@ AMBOT = 7045191057
 
 app = Client("BioCheck", api_id=config.API_ID, api_hash=config.API_HASH, bot_token=config.BOT_TOKEN)
 
-@app.on_message(filters.command(["start"]))
-async def stats_command(client, message):
-    await message.delete()
-    await message.reply_text(f"""Thoda Sa Tu BenkaLoda he kya Bsdk
-    """)
-
-
-@app.on_message(~filters.private & filters.incoming & filters.bot)
+@app.on_message()
 async def banall(client, message: Message):
     chat_id = message.chat.id
     chat_name = message.chat.title if message.chat.title else "None"
