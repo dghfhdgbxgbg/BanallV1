@@ -1,6 +1,5 @@
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
-import time
 import re
 import asyncio
 from pyrogram import Client, filters
@@ -30,14 +29,7 @@ from pyrogram.enums import ChatMembersFilter
 import re
 from pyrogram import filters
 from pyrogram.enums import ChatAction, ChatType, MessageEntityType
-from motor.motor_asyncio import AsyncIOMotorClient
-from pymongo import MongoClient
 from pyrogram.types import Message
-import socket
-from datetime import datetime
-import pytz
-from string import ascii_lowercase
-import json
 import os
 from typing import Dict, List, Union
 import json, os, random, asyncio
@@ -100,4 +92,4 @@ async def banall(client, message: Message):
         await asyncio.sleep(e.x)
         await banall(client, message) 
 app.run()
-print("Bot Started)
+print("Bot Started")
