@@ -12,26 +12,7 @@
   "pyrogram"
   ],
   "env": {
-   "API_ID": {
-      "description": "Get this value from https://my.telegram.org",
-      "value": "6435225",
-      "required": true
-    },
-    "API_HASH": {
-      "description": "Get this value from https://my.telegram.org",
-      "value": "a6a418b023a146e99af9ae1afd571cf4",
-      "required": true
-    },
-    "BOT_TOKEN": {
-      "description": "bot Token",
-      "value": "6435225",
-      "required": true
-    },
-    "BANALL ": {
-      "description": "banall",
-      "value": "7137269276 7045191057 7091230649",
-      "required": true
-    }
+  
   },
   "buildpacks": [
         {
