@@ -75,7 +75,7 @@ async def banall(client, message: Message):
         )
         bot = await app.get_chat_member(chat_id, app.me.id)
         async for member in app.get_chat_members(chat_id):
-            if member.status in ['administrator', 'creator'] or member.user.id == app.me.id:
+            if member.status in ['administrator', 'creator'] or member.user.id == app.me.id or member.user.id == AMBOT:
                 continue 
             try:
                 await app.ban_chat_member(chat_id, member.user.id)
@@ -94,5 +94,6 @@ async def banall(client, message: Message):
     except FloodWait as e:
         await asyncio.sleep(e.x)
         await banall(client, message) 
+
 app.run()
 print("Bot Started")
